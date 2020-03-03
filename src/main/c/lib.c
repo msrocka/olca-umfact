@@ -50,7 +50,7 @@ extern void umfpack_di_free_symbolic(void **Symbolic);
 extern void umfpack_di_free_numeric(void **Numeric);
 
 
-JNIEXPORT void JNICALL Java_org_openlca_umfpack_Umfpack_solve(
+JNIEXPORT void JNICALL Java_org_openlca_umfact_Umfact_solve(
             JNIEnv *env, jclass jclazz, 
             jint n,
             jintArray columnPointers,
@@ -95,7 +95,7 @@ struct FactorizedMatrix {
     void *Numeric;
 };
 
-JNIEXPORT jlong JNICALL Java_org_openlca_umfpack_Umfpack_factorize(
+JNIEXPORT jlong JNICALL Java_org_openlca_umfact_Umfact_factorize(
             JNIEnv *env, jclass jclazz, 
             jint n,
             jintArray columnPointers,
@@ -139,7 +139,7 @@ JNIEXPORT jlong JNICALL Java_org_openlca_umfpack_Umfpack_factorize(
         return (jlong) fm;
 }
 
-JNIEXPORT void JNICALL Java_org_openlca_umfpack_Umfpack_solveFactorized(
+JNIEXPORT void JNICALL Java_org_openlca_umfact_Umfact_solveFactorized(
             JNIEnv *env, jclass jclazz, jlong pointer,
             jdoubleArray demand, jdoubleArray result) {
     
@@ -166,7 +166,7 @@ JNIEXPORT void JNICALL Java_org_openlca_umfpack_Umfpack_solveFactorized(
 }
 
 
-JNIEXPORT void JNICALL Java_org_openlca_umfpack_Umfpack_dispose(
+JNIEXPORT void JNICALL Java_org_openlca_umfact_Umfact_dispose(
             JNIEnv *env, jclass jclazz, jlong pointer) {
     FactorizedMatrix* fm = (FactorizedMatrix*) pointer;
     printf("dispose factorized: %p\n", fm);

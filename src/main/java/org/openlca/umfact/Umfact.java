@@ -3,6 +3,7 @@ package org.openlca.umfact;
 import java.io.File;
 
 import org.openlca.core.matrix.format.CSCMatrix;
+import org.openlca.julia.Julia;
 
 public class Umfact {
 
@@ -55,15 +56,21 @@ public class Umfact {
     }
     
     /**
-     * Loads the native library from the given path. Does nothing when the
-     * library was already loaded.
+     * Loads the native library from the given folder. This folder must
+     * contain the openLCA native calculation libraries with UMFPACK support.
      */
-    public static void load(String pathToLib) {
+    public static void load(File dir) {
         if (loaded)
             return;
-        File f = new File(pathToLib);
+        if (!Julia.isLoaded()) {
+            Julia.loadFromDir(dir);
+        }
+        if (!Julia.isWithUmfpack()) 
+            throw new RuntimeException(
+                "Could not load UMFPACK dependencies from " + dir);
+
+        File f = new File(dir, "olca-umfact.dll"); // TODO: currently Windows only
         System.load(f.getAbsolutePath());
-        // TODO: test it
         loaded = true;
     }
 }

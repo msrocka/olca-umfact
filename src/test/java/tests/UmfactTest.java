@@ -2,6 +2,8 @@ package tests;
 
 import static org.junit.Assert.assertArrayEquals;
 
+import java.io.File;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openlca.core.matrix.format.CSCMatrix;
@@ -9,11 +11,11 @@ import org.openlca.core.matrix.format.HashPointMatrix;
 import org.openlca.umfact.Umfact;
 import org.openlca.umfact.UmfactMatrix;
 
-public class UmfpackTest {
+public class UmfactTest {
 
     @BeforeClass
     public static void setUp() {
-        Umfact.load("libs/olca-umfact.dll");
+        Umfact.load(new File("libs"));
     }
 
     @Test
