@@ -1,8 +1,10 @@
-package org.openlca.umfpack;
+package org.openlca.umfact;
 
 import java.io.File;
 
-public class Umfpack {
+import org.openlca.core.matrix.format.CSCMatrix;
+
+public class Umfact {
 
     private static boolean loaded;
 
@@ -14,9 +16,9 @@ public class Umfpack {
         double[] demand,
         double[] result);
 
-    public static double[] solve(UmfMatrix m, double[] demand) {
+    public static double[] solve(CSCMatrix m, double[] demand) {
         double[] result = new double[demand.length];
-        solve(m.rowCount, 
+        solve(m.rows, 
             m.columnPointers,
             m.rowIndices,
             m.values,
@@ -32,13 +34,13 @@ public class Umfpack {
         double[] values
     );
 
-    public static UmfFactorizedMatrix factorize(UmfMatrix m) {
+    public static UmfactMatrix factorize(CSCMatrix m) {
         long pointer = factorize(
-            m.rowCount, 
+            m.rows, 
             m.columnPointers,
             m.rowIndices,
             m.values);
-        return new UmfFactorizedMatrix(pointer);
+        return new UmfactMatrix(pointer);
     }
 
     public static native void dispose(long pointer);
@@ -46,7 +48,7 @@ public class Umfpack {
     public static native long solveFactorized(
         long pointer, double[] demand, double[] result);
     
-    public static double[] solve(UmfFactorizedMatrix m, double[] demand) {
+    public static double[] solve(UmfactMatrix m, double[] demand) {
         double[] result = new double[demand.length];
         solveFactorized(m.pointer, demand, result);
         return result;
