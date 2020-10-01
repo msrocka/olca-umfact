@@ -1,4 +1,11 @@
 # olca-umfact
+
+__Update__: This repository is outdated. [olca-rust](https://github.com/msrocka/olca-rust)
+can now handle factorizations correctly. I only use this repo to backup my old
+C/C++ bindings and make files.
+
+---
+
 This is a small library that supports to pass around pointers to factorized
 [UMFPACK](https://github.com/PetterS/SuiteSparse/tree/master/UMFPACK) matrices
 between Java and native code. The glue code is written in C but we may want
